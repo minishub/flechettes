@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#4338ca">
+<title>Feuille de match</title>
+<style>
+:root{--bg:#eef1f8;--card:#fff;--t:#1a2036;--m:#6b7390;--p:#4f46e5;--p2:#7c3aed;--pl:#eef0ff;--b:#e1e5f0;--ok:#16a34a;--okl:#e3f6ea;--wa:#d97706;--wal:#fff4dd;--ko:#dc2626;--kol:#fde8e8;--inp:#f7f8fc;--sh:0 1px 2px #1a203610,0 8px 24px -12px #1a203630}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#1a1f36;--t:#e8ebf8;--m:#9aa3c4;--p:#7c83ff;--p2:#a78bfa;--pl:#252b4d;--b:#2b3253;--ok:#34d399;--okl:#12372b;--wa:#fbbf24;--wal:#3b2f12;--ko:#f87171;--kol:#3d1a1f;--inp:#121630;--sh:0 1px 2px #0006,0 8px 24px -12px #000a}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.45 "Inter","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+header{background:linear-gradient(120deg,#1e1b4b,#4338ca 55%,#7c3aed);color:#fff;padding:16px 16px 18px;padding-top:calc(16px + env(safe-area-inset-top))}
+header small{display:block;color:#ffffffb8;font-size:13px}
+header h1{margin:2px 0 6px;font-size:24px;letter-spacing:-.02em}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{background:#ffffff26;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:600}
+main{max-width:560px;margin:auto;padding:14px 16px}
+.card{background:var(--card);border:1px solid var(--b);border-radius:14px;box-shadow:var(--sh);padding:14px;margin-bottom:12px}
+button{font:inherit;color:inherit;cursor:pointer}
+.mt{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--b);border-radius:14px;padding:12px;margin-bottom:8px;box-shadow:var(--sh)}
+.mt.next{border-color:var(--p);box-shadow:0 0 0 2px color-mix(in srgb,var(--p) 35%,transparent)}
+.mt.done{opacity:.72}
+.n{width:28px;height:28px;border-radius:50%;background:var(--pl);color:var(--p);font-weight:800;font-size:13px;display:grid;place-items:center}
+.vs b{display:block;font-size:15px;line-height:1.25}.vs i{font-style:normal;color:var(--m);font-size:12px;font-weight:700;display:block;margin:1px 0}.vs small{color:var(--m);font-size:12px}
+.bd{padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;display:inline-block}
+.bd.gr{background:var(--inp);color:var(--m);border:1px solid var(--b)}.bd.ok{background:var(--ok);color:#fff}.bd.pt{background:var(--p);color:#fff}.bd.wa{background:var(--wa);color:#fff}
+h2{font-size:15px;margin:16px 2px 8px;color:var(--m);text-transform:uppercase;letter-spacing:.05em}
+.back{background:none;border:0;color:var(--p);font-weight:700;padding:4px 0 10px}
+.ref{color:var(--m);font-size:14px;margin:0 0 10px}
+.score{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center;margin:6px 0 14px}
+.score .nm{font-weight:700;font-size:16px;line-height:1.2;overflow-wrap:anywhere}
+.score .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.score .w{color:var(--ok)}
+.q{text-align:center;font-weight:700;margin:4px 0 10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{min-height:92px;border:2px solid var(--b);background:var(--inp);border-radius:16px;padding:10px;font-weight:700;font-size:16px;line-height:1.2;overflow-wrap:anywhere;transition:transform .08s}
+.pick:active{transform:scale(.97);border-color:var(--p);background:var(--pl)}
+.pick:disabled{opacity:.4}
+.legs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:14px 0 6px}
+.lg{min-width:44px;border-radius:10px;padding:4px 6px;text-align:center;font-size:12px;font-weight:700;background:var(--inp);border:1px solid var(--b)}
+.lg b{display:block;font-size:14px}.lg.a{border-color:var(--p);color:var(--p)}.lg.b{border-color:var(--p2);color:var(--p2)}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.btn{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:0;padding:14px 18px;border-radius:12px;font-weight:700;font-size:16px;width:100%}
+.btn.s{background:var(--pl);color:var(--p);width:auto;padding:10px 14px;font-size:14px}
+.btn:disabled{opacity:.4}
+.lnk{background:none;border:0;color:var(--p);text-decoration:underline;font-size:14px;padding:6px}
+label.f{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--m);margin:12px 0 4px}
+input,select{font:inherit;color:var(--t);width:100%;padding:12px;border:1px solid var(--b);border-radius:12px;background:var(--inp)}
+.direct{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info{background:var(--pl);color:var(--p);border-left:4px solid var(--p);padding:10px 12px;border-radius:10px;font-size:14px;margin:10px 0}
+.warn{background:var(--wal);color:var(--wa);border-left:4px solid var(--wa);padding:10px 12px;border-radius:10px;font-size:14px;margin:10px 0}
+.err{background:var(--kol);color:var(--ko);border-left:4px solid var(--ko);padding:10px 12px;border-radius:10px;font-size:14px;margin:10px 0}
+.okb{background:var(--okl);color:var(--ok);border-left:4px solid var(--ok);padding:12px;border-radius:10px;font-weight:700;margin:10px 0}
+.st{font-size:12px;color:var(--m);text-align:center;margin-top:14px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--m);margin-right:5px;vertical-align:middle}.dot.on{background:var(--ok)}.dot.ko{background:var(--ko)}
+</style></head><body>
+<header><small id="tn">Feuille de match</small><h1 id="pn">Chargement…</h1><div class="chips" id="chips"></div></header>
+<main id="v"></main>
+<script>
+/* Page de saisie mobile : ouverte en scannant le QR code d'une poule.
+   Les informations de la poule sont dans l'adresse (#…) ; les résultats sont envoyés
+   via le relais ntfy.sh à la page principale du tournoi, qui les enregistre. */
+const RELAY='https://ntfy.sh/';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let D=null,ST={},LOCK=false,view=null,legs=[],direct=false,net='wait',sentOk=null;
+function decode(h){try{h=h.replace(/^#/,'').replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(decodeURIComponent(escape(atob(h))))}catch(e){return null}}
+const nm=i=>D.j[i]||'—';
+const refOf=m=>typeof m[2]==='number'?(m[2]>=0?nm(m[2]):''):String(m[2]||'');
+const legOf=i=>D.ar?(i<D.m.length/2?'Aller':'Retour'):'';
+const fmtBo=n=>n+' manche'+(n>1?'s':'')+' gagnante'+(n>1?'s':'');
+const QK=()=>'fl-queue-'+D.t;
+const queue=()=>{try{return JSON.parse(localStorage.getItem(QK()))||[]}catch(e){return[]}};
+const setQueue=q=>{try{localStorage.setItem(QK(),JSON.stringify(q))}catch(e){}};
+
+function init(){D=decode(location.hash);
+ if(!D||D.v!==1||!D.t||!Array.isArray(D.m)){$('#pn').textContent='QR code non reconnu';$('#v').innerHTML='<div class="err">Cette page doit être ouverte en scannant le QR code d\'une poule (imprimé depuis la page du tournoi).</div>';return}
+ document.title=D.pn+' · Feuille de match';
+ $('#tn').textContent=D.n||'Tournoi';$('#pn').textContent=D.pn;
+ $('#chips').innerHTML=(D.c?`<span class="chip">🎯 Cible n°${D.c}</span>`:'')+`<span class="chip">${fmtBo(D.bo)}</span><span class="chip">${D.m.length} matchs</span>`;
+ render();load();flush();setInterval(flush,10000);addEventListener('online',flush)}
+
+/* État des matchs : reconstruit à partir des messages du relais (résultats envoyés + état publié par la table de marque) */
+function apply(d){if(d.event!=='message')return;let r;try{r=JSON.parse(d.message)}catch(e){return}
+ if(!r||r.k!==D.k||r.p!==D.p||r.f!==D.f)return;
+ if(r.type==='res'&&D.m[r.m]){ST[r.m]={sa:r.sa,sb:r.sb,kind:'sent'}}
+ else if(r.type==='st'&&Array.isArray(r.s)){r.s.forEach((x,i)=>{if(x)ST[i]={sa:x[0],sb:x[1],kind:'ok'};else delete ST[i]});LOCK=!!r.lk}}
+async function load(){try{const t=await (await fetch(RELAY+D.t+'/json?poll=1&since=all')).text();
+  t.split('\n').filter(Boolean).forEach(l=>{try{apply(JSON.parse(l))}catch(e){}});net='on'}catch(e){net='ko'}
+ render();
+ try{const es=new EventSource(RELAY+D.t+'/sse');es.onopen=()=>{net='on';status()};es.onerror=()=>{net='ko';status()};
+  es.onmessage=e=>{try{apply(JSON.parse(e.data))}catch(x){}if(!view)render();else status()}}catch(e){}}
+function status(){const s=$('#st');if(!s)return;const q=queue().filter(x=>x.p===D.p).length;
+ s.innerHTML=`<span class="dot ${net==='on'?'on':net==='ko'?'ko':''}"></span>${net==='on'?'Connecté à la table de marque':net==='ko'?'Pas de connexion internet':'Connexion…'}${q?` · <b>${q} résultat(s) en attente d'envoi</b>`:''}`}
+
+function badge(i){const q=queue().find(x=>x.p===D.p&&x.m===i),s=ST[i];
+ if(q)return `<span class="bd wa">${q.sa} – ${q.sb} · en attente</span>`;
+ if(!s)return '<span class="bd gr">À jouer</span>';
+ return s.kind==='ok'?`<span class="bd ok">${s.sa} – ${s.sb} ✓</span>`:`<span class="bd pt">${s.sa} – ${s.sb} envoyé</span>`}
+const played=i=>!!ST[i]||queue().some(x=>x.p===D.p&&x.m===i);
+
+function render(){if(!D)return;if(view!=null)return rSheet();
+ const next=D.m.findIndex((_,i)=>!played(i)),left=D.m.filter((_,i)=>!played(i)).length;
+ let h=sentOk?`<div class="okb">✓ ${sentOk}</div>`:'';sentOk=null;
+ if(LOCK)h+='<div class="info">🔒 Cette poule a été validée par la table de marque : les résultats ne peuvent plus être modifiés ici.</div>';
+ else h+=`<div class="info">Touchez un match pour remplir sa feuille. ${left?`<b>${left}</b> match(s) restant(s).`:'Tous les matchs sont joués 🎉'}</div>`;
+ h+=D.m.map((m,i)=>`<button class="mt ${i===next&&!LOCK?'next':''} ${played(i)?'done':''}" onclick="openM(${i})" ${LOCK?'disabled':''}><span class="n">${i+1}</span><span class="vs"><b>${esc(nm(m[0]))}</b><i>contre</i><b>${esc(nm(m[1]))}</b>${refOf(m)||legOf(i)?`<small>${[legOf(i),refOf(m)?'Arbitre : '+esc(refOf(m)):''].filter(Boolean).join(' · ')}</small>`:''}</span>${i===next&&!LOCK?'<span class="bd pt">Prochain</span>':badge(i)}</button>`).join('');
+ h+='<div class="st" id="st"></div>';
+ $('#v').innerHTML=h;status()}
+
+function openM(i){view=i;legs=[];direct=false;render();scrollTo(0,0)}
+function back(){view=null;render();scrollTo(0,0)}
+function tally(){return[legs.filter(x=>x===0).length,legs.filter(x=>x===1).length]}
+function leg(w){const[a,b]=tally();if(Math.max(a,b)>=D.bo)return;legs.push(w);rSheet()}
+function undo(){legs.pop();rSheet()}
+function rSheet(){const i=view,m=D.m[i],A=nm(m[0]),B=nm(m[1]),r=refOf(m);
+ let[a,b]=tally();
+ if(direct){a=+($('#da')?.value||0);b=+($('#db')?.value||0)}
+ const fin=Math.max(a,b)===D.bo&&Math.min(a,b)<D.bo,s=ST[i];
+ let h=`<button class="back" onclick="back()">‹ Tous les matchs</button><div class="card">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:18px">Match n°${i+1}</b>${legOf(i)?`<span class="bd pt">${legOf(i)}</span>`:''}</div>
+ <p class="ref">${r?'Arbitre : <b>'+esc(r)+'</b> · ':''}${fmtBo(D.bo)}</p>
+ ${s?`<div class="warn">Un résultat existe déjà pour ce match (${s.sa} – ${s.sb}). Un nouvel envoi sera <b>soumis à la table de marque</b> pour confirmation.</div>`:''}
+ <div class="score"><div class="nm">${esc(A)}</div><div class="big"><span class="${fin&&a>b?'w':''}">${a}</span> – <span class="${fin&&b>a?'w':''}">${b}</span></div><div class="nm">${esc(B)}</div></div>`;
+ if(!direct){
+  h+=fin?`<div class="okb" style="text-align:center">🏆 Vainqueur : ${esc(a>b?A:B)}</div>`:`<div class="q">Manche ${legs.length+1} : qui l'a gagnée ?</div><div class="two"><button class="pick" onclick="leg(0)">${esc(A)}</button><button class="pick" onclick="leg(1)">${esc(B)}</button></div>`;
+  h+=legs.length?`<div class="legs">${legs.map((w,k)=>`<span class="lg ${w?'b':'a'}">M${k+1}<b>${esc((w?B:A).split(' ')[0])}</b></span>`).join('')}</div><div class="row"><button class="btn s" onclick="undo()">↶ Annuler la dernière manche</button></div>`:'';
+  h+=`<div class="row"><button class="lnk" onclick="direct=true;rSheet()">Saisir directement le score final</button></div>`}
+ else{const opt=v=>Array.from({length:D.bo+1},(_,k)=>`<option ${k===v?'selected':''}>${k}</option>`).join('');
+  h+=`<div class="direct"><label><span class="f" style="display:block">${esc(A)}</span><select id="da" onchange="rSheet()">${opt(a)}</select></label><label><span class="f" style="display:block">${esc(B)}</span><select id="db" onchange="rSheet()">${opt(b)}</select></label></div>
+  ${fin||(!a&&!b)?'':`<div class="err">Le vainqueur doit avoir exactement ${D.bo} manche(s) et l'adversaire moins.</div>`}
+  <div class="row"><button class="lnk" onclick="direct=false;legs=[];rSheet()">Revenir à la saisie manche par manche</button></div>`}
+ h+=`<label class="f" for="by">Feuille remplie par</label><input id="by" autocomplete="name" placeholder="Nom de l'arbitre" value="${esc(localStorage.getItem('fl-by')||r)}">
+ <div style="margin-top:14px"><button class="btn" ${fin?'':'disabled'} onclick="send(${a},${b})">✓ Valider et envoyer le résultat</button></div></div><div class="st" id="st"></div>`;
+ $('#v').innerHTML=h;status()}
+
+async function send(sa,sb){const i=view,m=D.m[i],by=($('#by').value||'').trim().slice(0,40),W=sa>sb?nm(m[0]):nm(m[1]);
+ if(!confirm(`Confirmer le résultat du match n°${i+1} ?\n\n${nm(m[0])}  ${sa} – ${sb}  ${nm(m[1])}\n\nVainqueur : ${W}`))return;
+ try{localStorage.setItem('fl-by',by)}catch(e){}
+ const q=queue().filter(x=>!(x.p===D.p&&x.m===i));q.push({type:'res',k:D.k,p:D.p,f:D.f,m:i,sa,sb,by,legs:direct?'':legs.join('')});setQueue(q);
+ view=null;await flush();
+ sentOk=queue().some(x=>x.p===D.p&&x.m===i)?`Résultat du match n°${i+1} enregistré sur ce téléphone : il sera envoyé dès que la connexion revient.`:`Résultat du match n°${i+1} envoyé à la table de marque.`;
+ render();scrollTo(0,0)}
+/* File d'envoi : un résultat n'est retiré qu'une fois accepté par le relais (réseau instable en salle) */
+async function flush(){if(flush.busy)return;flush.busy=true;
+ for(const x of queue()){try{const r=await fetch(RELAY+D.t,{method:'POST',body:JSON.stringify(x)});if(!r.ok)break;
+   ST[x.m]=x.p===D.p?{sa:x.sa,sb:x.sb,kind:'sent'}:ST[x.m];setQueue(queue().filter(y=>!(y.p===x.p&&y.m===x.m&&y.sa===x.sa&&y.sb===x.sb)));net='on'}catch(e){net='ko';break}}
+ flush.busy=false;if(!view)render();else status()}
+init();
+</script></body></html>
